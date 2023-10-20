@@ -23,7 +23,15 @@ def color_reduct(pix, name):
             if r != 0 and b != 0 and g != 0:
                 pix[i, j] = ceil(log2(r)) * 32, int(log2(g)) * 32, int(log2(b)) * 32
     im.save(f'{name}')
-
+def white(name):
+    # Негатив в черно-белом формате
+    x, y = im.size
+    for i in range(x):
+        for j in range(y):
+            r, g, b = pix[i, j]
+            sr = (r + g + b) // 3
+            pix[i, j] = 255 - sr, 255 - sr, 255 - sr
+    im.save(f'{name}')
 
 
 
