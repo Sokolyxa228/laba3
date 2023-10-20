@@ -13,6 +13,17 @@ def border(pix, thickness, color, name):
             pix[i, j] = color[0], color[1], color[2]
             pix[x - i - 1, y - j - 1] = color[0], color[1], color[2]
     im.save(f'{name}')
+def color_reduct(pix, name):
+    from math import log2, ceil
+    # Уменьшает количество различных цветов до 9
+    x, y = im.size
+    for i in range(x):
+        for j in range(y):
+            r, g, b = pix[i, j]
+            if r != 0 and b != 0 and g != 0:
+                pix[i, j] = ceil(log2(r)) * 32, int(log2(g)) * 32, int(log2(b)) * 32
+    im.save(f'{name}')
+
 
 
 
