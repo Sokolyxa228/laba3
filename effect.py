@@ -32,6 +32,35 @@ def white(name):
             sr = (r + g + b) // 3
             pix[i, j] = 255 - sr, 255 - sr, 255 - sr
     im.save(f'{name}')
+def collage(name):
+    # Создает коллаж, разрезая изображение на 4 части и меняя их местами
+    x, y = im.size
+    im1 = Image.new('RGB', (x // 2, y // 2), (0, 0, 0))
+    im2 = Image.new('RGB', (x // 2, y // 2), (0, 0, 0))
+    im3 = Image.new('RGB', (x // 2, y // 2), (0, 0, 0))
+    im4 = Image.new('RGB', (x // 2, y // 2), (0, 0, 0))
+    pict1, pict2, pict3, pict4 = im1.load(), im2.load(), im3.load(), im4.load()
+    for i in range(x // 2):
+        for j in range(y // 2):
+            r, g, b = pix[i, j]
+            pict1[i, j] = r, g, b
+    for i in range(x // 2, x):
+        for j in range(y // 2):
+            r, g, b = pix[i, j]
+            pict2[i - 1 - x // 2, j] = r, g, b
+    for i in range(x // 2):
+        for j in range(y // 2, y):
+            r, g, b = pix[i, j]
+            pict3[i, j - y // 2 - 1] = r, g, b
+    for i in range(x // 2, x):
+        for j in range(y // 2, y):
+            r, g, b = pix[i, j]
+            pict4[i - 1 - x // 2, j - y // 2 - 1] = r, g, b
+    im.paste(im4, (0, 0))
+    im.paste(im1, (x // 2, y // 2))
+    im.paste(im3, (x // 2, 0))
+    im.paste(im2, (0, y // 2))
+    im.save(f'{name}')
 
 
 
