@@ -61,6 +61,24 @@ def collage(name):
     im.paste(im3, (x // 2, 0))
     im.paste(im2, (0, y // 2))
     im.save(f'{name}')
+def delet(start, n, name):
+    # Функция сохраняет каждый n символ, начиная со start
+    x, y = im.size
+    im1 = Image.new('RGB', (x, y), (0, 0, 0))
+    pict = im1.load()
+    im2 = Image.new('RGB', (start, y), (0, 0, 0))
+    pict2 = im2.load()
+    x1, y1 = im2.size
+    for i in range(x1):
+        for j in range(y1):
+            r, g, b = pix[i, j]
+            pict2[i, j] = r, g, b
+    for i in range(start, x, n):
+        for j in range(0, y, 2):
+            r, g, b = pix[i, j]
+            pict[i, j] = r, g, b
+    im1.paste(im2, (0, 0))
+    im1.save(f'{name}')
 
 
 
