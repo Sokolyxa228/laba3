@@ -37,6 +37,19 @@ class Project(QMainWindow, Ui_MainWindow):
     def error_message(self):
         """Message by using effects without open image"""
         QMessageBox.critical(self, 'Ошибка', 'Необходимо открыть изображение', QMessageBox.Ok)
+    def cancel_effects(self):
+        if self.fname == '':
+            self.error_message()
+        else:
+            self.pixmap = QPixmap(self.fname_const)
+            if self.flag_effect:
+                if self.pixmap.width() < 750 and self.pixmap.height() < 660:
+                    new = self.pixmap
+                else:
+                    new = self.pixmap.scaled(750, 660, Qt.KeepAspectRatio)
+                self.image.setPixmap(new)
+                self.fname = self.fname_const
+                self.flag_effect = False
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
